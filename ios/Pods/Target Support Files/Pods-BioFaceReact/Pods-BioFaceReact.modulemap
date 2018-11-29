@@ -1,0 +1,6 @@
+framework module Pods_BioFaceReact {
+  umbrella header "Pods-BioFaceReact-umbrella.h"
+
+  export *
+  module * { export * }
+}
