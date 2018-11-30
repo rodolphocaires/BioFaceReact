@@ -10,21 +10,23 @@ import Foundation
 import face
 
 @objc(FaceManager)
-class FaceManager: UIViewController, FaceViewControllerDelegate {
-  
+class FaceManager: RCTEventEmitter, FaceViewControllerDelegate {
   func onFaceResult(_ faceResult: FaceResult) {
-    
-    // Result to callback
-    
-    print("RESULTS")
-    
-    for element in faceResult.photoFrame {
-      print("ELEMENTO: \(element)")
-    }
-    
-    print("result version \(faceResult.version)")
-    print("result Code: \(faceResult.resultCode)")
-    print("result thumb: \(faceResult.thumb)")
+    let result : [String:Any] = [
+      "photoFrame": faceResult.photoFrame,
+      "thumb": faceResult.thumb,
+      "version": faceResult.version,
+      "resultCode": faceResult.resultCode,
+    ]
+    sendEvent(withName: "onFaceResult", body: result)
+  }
+  
+  override func supportedEvents() -> [String] {
+    return ["onFaceResult"]
+  }
+  
+  override public static func requiresMainQueueSetup() -> Bool {
+    return true;
   }
   
   @objc(capture)
