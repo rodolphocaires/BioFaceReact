@@ -36,9 +36,13 @@ class FaceManager: UIViewController, FaceViewControllerDelegate {
     let livenessViewController = storyBoard.instantiateViewController(withIdentifier: "livenessVC") as! FaceViewController
 
     livenessViewController.delegate = self
-
-    self.present(naviViewController, animated: false, completion: nil)
-
+    
+    let rootViewController = UIApplication.shared.keyWindow?.rootViewController;
+    
     naviViewController.pushViewController(livenessViewController, animated: false)
+    
+    DispatchQueue.main.async {
+      rootViewController?.present(naviViewController, animated: true, completion: nil)
+    }
   }
 }
